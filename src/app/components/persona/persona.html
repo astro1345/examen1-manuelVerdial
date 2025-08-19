@@ -1,0 +1,35 @@
+<h1>Formulario de Persona</h1>
+
+<form (submit)="savePersona()" [formGroup]="personaForm" >
+  <label >Nombre:</label>
+  <input type="text" formControlName="nombre" />
+  <label >Apellido:</label>
+  <input type="text"  formControlName="apellido" />
+  <label >Edad:</label>
+  <input type="number"  formControlName="edad" />
+  <button type="submit">Guardar</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Edad</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (persona of personas; track $index) {
+      <tr>
+        <td>{{ persona.nombre }}</td>
+        <td>{{ persona.apellido }}</td>
+        <td>{{ persona.edad }}</td>
+        <td>
+
+<button (click)="actualizarPersona(persona)">Editar</button>
+          <button (click)="deletePersona(persona.id)">Eliminar</button>  
+        </td>
+      </tr>
+    }
+  </tbody>
