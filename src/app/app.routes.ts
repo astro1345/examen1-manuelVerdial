@@ -4,17 +4,20 @@ export const routes: Routes = [
     {
         path: '',
         loadComponent: () =>
-            import('./components/home/home').then(m => m.Home)
+          import('./features/home/components/home/home').then(m => m.Home)
     },
     {
         path: 'persona',
         loadComponent: () =>
-            import('./components/persona/persona').then(m => m.Persona)
+            import('./features/persona/components/persona/persona').then(m => m.Persona)
     },
-    {
-        path: 'mascota',
+
+     {
+        path: 'automovil',
         loadComponent: () =>
-            import('./components/mascota/mascota').then(m => m.Mascota)
-    }
+            import('./features/automovil/components/automovil/automovil').then(m => m.Automovil)
+    },
+
+   
 ]
 ;

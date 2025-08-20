@@ -1,0 +1,94 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-secondary">Formulario de Persona</h1>
+  
+
+  <div class="card shadow mb-5">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Registrar Nueva Persona</h5>
+    </div>
+    <div class="card-body">
+      <form (submit)="savePersona()" [formGroup]="personaForm">
+        <div class="row">
+        
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Nombre:</label>
+            <input type="text" class="form-control" formControlName="nombre"
+                   [class.is-invalid]="personaForm.get('nombre')?.invalid && personaForm.get('nombre')?.touched">
+            <div class="invalid-feedback">
+              Por favor ingresa el nombre
+            </div>
+          </div>
+
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Apellido:</label>
+            <input type="text" class="form-control" formControlName="apellido"
+                   [class.is-invalid]="personaForm.get('apellido')?.invalid && personaForm.get('apellido')?.touched">
+            <div class="invalid-feedback">
+              Por favor ingresa el apellido
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Edad:</label>
+            <input type="number" class="form-control" formControlName="edad"
+                   [class.is-invalid]="personaForm.get('edad')?.invalid && personaForm.get('edad')?.touched">
+            <div class="invalid-feedback">
+              Por favor ingresa la edad
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="submit" class="btn btn-success" [disabled]="!personaForm.valid">
+            <i class="bi bi-save me-2"></i>Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Lista de Personas</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Edad</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (persona of personas; track $index) {
+              <tr>
+                <td>{{ persona.nombre }}</td>
+                <td>{{ persona.apellido }}</td>
+                <td>{{ persona.edad }}</td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-warning me-2" (click)="actualizarPersona(persona)">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deletePersona(persona.id)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+            }
+            @empty {
+              <tr>
+                <td colspan="4" class="text-center text-muted py-4">
+                  No hay personas registradas
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

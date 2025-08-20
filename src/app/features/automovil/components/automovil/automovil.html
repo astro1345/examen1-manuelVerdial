@@ -1,0 +1,108 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-secondary"> Automoviles</h1>
+  
+  <div class="card shadow mb-5">
+    <div class="card-header bg-danger text-white">
+      <h5 class="mb-0">Registrar Nuevo Automovil</h5>
+    </div>
+    <div class="card-body">
+      <form (submit)="saveAutomovil()" [formGroup]="automovilForm">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Marca:</label>
+            <input type="text" class="form-control" formControlName="marca" 
+                   [class.is-invalid]="automovilForm.get('marca')?.invalid && automovilForm.get('marca')?.touched">
+            <div class="invalid-feedback">
+              Por favor ingresa la marca del automovil
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Color :</label>
+         <input type="text" class="form-control" formControlName="color" 
+                   [class.is-invalid]="automovilForm.get('color')?.invalid && automovilForm.get('color')?.touched">
+            <div class="invalid-feedback">
+              Por favor ingresa la color del automovil
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Matricula :</label>
+         <input type="text" class="form-control" formControlName="matricula" 
+                   [class.is-invalid]="automovilForm.get('matricula')?.invalid && automovilForm.get('matricula')?.touched">
+            <div class="invalid-feedback">
+              Por favor ingresa la matricula del automovil
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Dueño:</label>
+            <select class="form-select" formControlName="duenio" required
+                    [class.is-invalid]="automovilForm.get('duenio')?.invalid && automovilForm.get('duenio')?.touched">
+              <option [ngValue]="null" disabled selected>Seleccione un dueño</option>
+              @for (persona of personas; track $index) {
+                <option [ngValue]="persona.id">
+                  {{ persona.nombre + ' ' + persona.apellido }}
+                </option>
+              }
+            </select>
+            <div class="invalid-feedback">
+              Por favor selecciona un dueño
+            </div>
+          </div>
+        </div>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="submit" class="btn btn-success" [disabled]="!automovilForm.valid">
+            <i class="bi bi-save me-2"></i>Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="card shadow">
+    <div class="card-header bg-info text-white">
+      <h5 class="mb-0">Lista de Autos</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Marca</th>
+              <th scope="col">Color</th>
+              <th scope="col">Matricula</th>
+              <th scope="col">Dueño (id)</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (automovil of automoviles; track $index) {
+              <tr>
+                <td>{{ automovil.marca }}</td>
+                <td>{{ automovil.color }}</td>
+                <td>{{ automovil.matricula }}</td>
+                <td>{{ automovil.duenio }}</td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-warning me-2" (click)="actualizarAutomovil(automovil)">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteAutomovil(automovil.id)">
+                    <i class="bi bi-trash"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+            }
+            @empty {
+              <tr>
+                <td colspan="4" class="text-center text-muted py-4">
+                  No hay mascotas registradas
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
